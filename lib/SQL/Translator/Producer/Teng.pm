@@ -7,6 +7,8 @@ our $VERSION = "0.01";
 
 use Text::Xslate;
 use Data::Section::Simple;
+use DBI;
+use SQL::Translator::Schema::Field;
 
 my $tx;
 sub tx {
@@ -22,6 +24,14 @@ sub produce {
     my $args = $translator->producer_args;
     my $package = $args->{package};
 
+    # patching SQL::Translator::Schema::Field::type_mapping
+    my %type_mapping = %SQL::Translator::Schema::Field::type_mapping;
+    local %SQL::Translator::Schema::Field::type_mapping = (
+        %type_mapping,
+        bigint  => DBI::SQL_BIGINT,
+        tinyint => DBI::SQL_TINYINT,
+    );
+
     my @tables;
     for my $table ($schema->get_tables) {
 
@@ -30,8 +40,7 @@ sub produce {
         for my $field ($table->get_fields) {
             push @columns, {
                 name      => $field->name,
-                type      => $field->sql_data_type,
-                type_text => $field->data_type,
+                type      => _get_dbi_const($field->sql_data_type),
             };
             push @pks, $field->name if $field->is_primary_key;
         }
@@ -43,10 +52,27 @@ sub produce {
         };
     }
 
-    tx()->render('schema.tx', {
+    tx->render('schema.tx', {
         package => $package,
         tables  => \@tables,
     });
+}
+
+my %CONST_HASH;
+sub _get_dbi_const {
+    my $val = shift;
+
+    unless (%CONST_HASH) {
+        for my $const_key (@{ $DBI::EXPORT_TAGS{sql_types} }) {
+            my $const_val = DBI->can($const_key)->();
+
+            unless (exists $CONST_HASH{$const_val}) {
+                $CONST_HASH{$const_val} = $const_key;
+            }
+        }
+    }
+
+    $CONST_HASH{$val};
 }
 
 1;
@@ -57,6 +83,7 @@ package <: $package :>;
 : }
 use strict;
 use warnings;
+use DBI qw/:sql_tags/;
 use Teng::Schema::Declare;
 
 : for $tables -> $table {
@@ -67,7 +94,7 @@ table {
 : for $table.columns -> $column {
         {
             name => '<: $column.name :>',
-            type => '<: $column.type :>', # <: $column.type_text :>
+            type => <: $column.type :>,
         },
 : }
     ;
