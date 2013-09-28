@@ -83,7 +83,7 @@ package <: $package :>;
 : }
 use strict;
 use warnings;
-use DBI qw/:sql_tags/;
+use DBI qw/:sql_types/;
 use Teng::Schema::Declare;
 
 : for $tables -> $table {
