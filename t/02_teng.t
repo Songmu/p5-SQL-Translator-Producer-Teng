@@ -2,6 +2,7 @@ use strict;
 use warnings;
 use utf8;
 use Test::More;
+use Test::Requires 'Test::mysqld';
 use t::Util::Teng;
 
 use DBI;
@@ -10,7 +11,6 @@ use File::Path qw/mkpath/;
 use File::Spec;
 use SQL::Translator;
 use SQL::Translator::Producer::Teng;
-use Test::mysqld;
 
 my $dir; {
     $dir = tempdir(CLEANUP => 1);
