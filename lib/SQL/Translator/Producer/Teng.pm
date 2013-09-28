@@ -1,5 +1,5 @@
 package SQL::Translator::Producer::Teng;
-use feature ':5.10';
+use 5.008001;
 use strict;
 use warnings;
 
@@ -8,16 +8,19 @@ our $VERSION = "0.01";
 use Text::Xslate;
 use Data::Section::Simple;
 
+my $tx;
 sub tx {
-    state $tx = Text::Xslate->new(
+    $tx ||= Text::Xslate->new(
         type => 'text',
         path => [Data::Section::Simple::get_data_section]
     );
 }
 
 sub produce {
-    my $translater = shift;
-    my $schema = $translater->schema;
+    my $translator = shift;
+    my $schema = $translator->schema;
+    my $args = $translator->producer_args;
+    my $package = $args->{package};
 
     my @tables;
     for my $table ($schema->get_tables) {
@@ -41,13 +44,17 @@ sub produce {
     }
 
     tx()->render('schema.tx', {
-        tables => \@tables,
+        package => $package,
+        tables  => \@tables,
     });
 }
 
 1;
 __DATA__
 @@ schema.tx
+: if $package {
+package <: $package :>;
+: }
 use strict;
 use warnings;
 use Teng::Schema::Declare;
