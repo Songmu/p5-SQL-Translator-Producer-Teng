@@ -108,15 +108,26 @@ __END__
 
 =head1 NAME
 
-SQL::Translator::Producer::Teng - It's new $module
+SQL::Translator::Producer::Teng - Teng-specific producer for SQL::Translator
 
 =head1 SYNOPSIS
 
-    use SQL::Translator::Producer::Teng;
+Use via SQL::Translator:
+
+  use SQL::Translator;
+
+  my $t = SQL::Translator->new( parser => '...', producer => 'Teng', '...' );
+  $t->translate;
 
 =head1 DESCRIPTION
 
-SQL::Translator::Producer::Teng is ...
+This module will produce text output of the schema suitable for L<Teng>.
+It will be a '.pm' file of L<Teng::Schema::Declare> format.
+
+=head1 ARGUMENTS
+
+This producer takes a single optional producer_arg C<package>, which
+provides the package name of the target schema '.pm' file.
 
 =head1 LICENSE
 

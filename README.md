@@ -1,14 +1,25 @@
 # NAME
 
-SQL::Translator::Producer::Teng - It's new $module
+SQL::Translator::Producer::Teng - Teng-specific producer for SQL::Translator
 
 # SYNOPSIS
 
-    use SQL::Translator::Producer::Teng;
+Use via SQL::Translator:
+
+    use SQL::Translator;
+
+    my $t = SQL::Translator->new( parser => '...', producer => 'Teng', '...' );
+    $t->translate;
 
 # DESCRIPTION
 
-SQL::Translator::Producer::Teng is ...
+This module will produce text output of the schema suitable for [Teng](http://search.cpan.org/perldoc?Teng).
+It will be a '.pm' file of [Teng::Schema::Declare](http://search.cpan.org/perldoc?Teng::Schema::Declare) format.
+
+# ARGUMENTS
+
+This producer takes a single optional producer\_arg `package`, which
+provides the package name of the target schema '.pm' file.
 
 # LICENSE
 

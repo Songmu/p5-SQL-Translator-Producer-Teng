@@ -1,5 +1,5 @@
 {
-   "abstract" : "It's new $module",
+   "abstract" : "Teng-specific producer for SQL::Translator",
    "author" : [
       "Songmu <y.songmu@gmail.com>"
    ],
@@ -42,15 +42,38 @@
       },
       "runtime" : {
          "requires" : {
-            "perl" : "5.008005"
+            "DBI" : "0",
+            "Data::Section::Simple" : "0",
+            "SQL::Translator::Schema::Field" : "0",
+            "Text::Xslate" : "0",
+            "perl" : "5.008001"
          }
       },
       "test" : {
+         "recommends" : {
+            "Test::mysqld" : "0"
+         },
          "requires" : {
-            "Test::More" : "0.98"
+            "File::Temp" : "0",
+            "SQL::Translator" : "0",
+            "Teng" : "0",
+            "Test::More" : "0",
+            "Test::Requires" : "0",
+            "parent" : "0"
          }
       }
    },
    "release_status" : "unstable",
+   "resources" : {
+      "bugtracker" : {
+         "web" : "https://github.com/Songmu/p5-SQL-Translator-Producer-Teng/issues"
+      },
+      "homepage" : "https://github.com/Songmu/p5-SQL-Translator-Producer-Teng",
+      "repository" : {
+         "type" : "git",
+         "url" : "git://github.com/Songmu/p5-SQL-Translator-Producer-Teng.git",
+         "web" : "https://github.com/Songmu/p5-SQL-Translator-Producer-Teng"
+      }
+   },
    "version" : "0.01"
 }
