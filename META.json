@@ -44,20 +44,19 @@
          "requires" : {
             "DBI" : "0",
             "Data::Section::Simple" : "0",
-            "SQL::Translator::Schema::Field" : "0",
+            "SQL::Translator" : "0",
             "Text::Xslate" : "0",
             "perl" : "5.008001"
          }
       },
       "test" : {
          "recommends" : {
-            "Test::mysqld" : "0"
+            "DBD::SQLite" : "0",
+            "Teng" : "0"
          },
          "requires" : {
             "File::Temp" : "0",
-            "SQL::Translator" : "0",
-            "Teng" : "0",
-            "Test::More" : "0",
+            "Test::More" : "0.98",
             "Test::Requires" : "0",
             "parent" : "0"
          }
