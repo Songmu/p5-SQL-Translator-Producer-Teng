@@ -1,6 +1,6 @@
 requires 'DBI';
 requires 'Data::Section::Simple';
-requires 'SQL::Translator::Schema::Field';
+requires 'SQL::Translator';
 requires 'Text::Xslate';
 requires 'perl', '5.008001';
 
@@ -12,11 +12,10 @@ on configure => sub {
 
 on test => sub {
     requires 'File::Temp';
-    requires 'SQL::Translator';
-    requires 'Teng';
-    requires 'Test::More';
+    requires 'Test::More', '0.98';
     requires 'Test::Requires';
     requires 'parent';
 
+    recommends 'Teng';
     recommends 'DBD::SQLite';
 };

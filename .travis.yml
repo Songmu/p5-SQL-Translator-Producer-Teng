@@ -4,4 +4,4 @@ perl:
   - "5.14"
   - "5.16"
 before_install:
-    cpanm -n DBD::SQLite
+    cpanm -n DBD::SQLite Teng
