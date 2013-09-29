@@ -13,8 +13,9 @@ use SQL::Translator::Schema::Field;
 my $tx;
 sub tx {
     $tx ||= Text::Xslate->new(
-        type => 'text',
-        path => [Data::Section::Simple::get_data_section]
+        type   => 'text',
+        module => ['Text::Xslate::Bridge::Star'],
+        path   => [Data::Section::Simple::get_data_section]
     );
 }
 
@@ -40,6 +41,7 @@ sub produce {
         for my $field ($table->get_fields) {
             push @columns, {
                 name      => $field->name,
+                type_name => $field->data_type,
                 type      => _get_dbi_const($field->sql_data_type),
             };
             push @pks, $field->name if $field->is_primary_key;
@@ -91,12 +93,9 @@ table {
     name '<: $table.name :>';
     pk   qw/<: $table.pks.join(' ') :>/;
     columns
-: for $table.columns -> $column {
-        {
-            name => '<: $column.name :>',
-            type => <: $column.type :>,
-        },
-: }
+    : for $table.columns -> $column {
+        { name => '<: $column.name :>', type => <: $column.type :> }, # <: $column.type_name | uc :>
+    : }
     ;
 };
 
@@ -114,10 +113,10 @@ SQL::Translator::Producer::Teng - Teng-specific producer for SQL::Translator
 
 Use via SQL::Translator:
 
-  use SQL::Translator;
-
-  my $t = SQL::Translator->new( parser => '...', producer => 'Teng', '...' );
-  $t->translate;
+    use SQL::Translator;
+    my $t = SQL::Translator->new( parser => '...' );
+    $t->producer('Teng', package => 'MyApp::DB::Schema');
+    $t->translate;
 
 =head1 DESCRIPTION
 
