@@ -4,4 +4,4 @@ perl:
   - "5.14"
   - "5.16"
 before_install:
-  cpanm -n Test::mysqld
+    cpanm -n DBD::SQLite

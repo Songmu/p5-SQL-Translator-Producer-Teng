@@ -18,5 +18,5 @@ on test => sub {
     requires 'Test::Requires';
     requires 'parent';
 
-    recommends 'Test::mysqld';
+    recommends 'DBD::SQLite';
 };
