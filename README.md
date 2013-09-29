@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/Songmu/p5-SQL-Translator-Producer-Teng.png?branch=master)](https://travis-ci.org/Songmu/p5-SQL-Translator-Producer-Teng)
 # NAME
 
 SQL::Translator::Producer::Teng - Teng-specific producer for SQL::Translator
@@ -7,8 +8,8 @@ SQL::Translator::Producer::Teng - Teng-specific producer for SQL::Translator
 Use via SQL::Translator:
 
     use SQL::Translator;
-
-    my $t = SQL::Translator->new( parser => '...', producer => 'Teng', '...' );
+    my $t = SQL::Translator->new( parser => '...' );
+    $t->producer('Teng', package => 'MyApp::DB::Schema');
     $t->translate;
 
 # DESCRIPTION

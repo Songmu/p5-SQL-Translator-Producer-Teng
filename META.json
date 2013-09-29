@@ -4,7 +4,7 @@
       "Songmu <y.songmu@gmail.com>"
    ],
    "dynamic_config" : 0,
-   "generated_by" : "Minilla/v0.5.6, CPAN::Meta::Converter version 2.132510",
+   "generated_by" : "Minilla/v0.7.0, CPAN::Meta::Converter version 2.132510",
    "license" : [
       "perl_5"
    ],
