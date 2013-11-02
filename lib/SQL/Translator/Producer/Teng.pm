@@ -10,9 +10,9 @@ use Data::Section::Simple;
 use DBI;
 use SQL::Translator::Schema::Field;
 
-my $tx;
-sub tx {
-    $tx ||= Text::Xslate->new(
+my $_tx;
+sub _tx {
+    $_tx ||= Text::Xslate->new(
         type   => 'text',
         module => ['Text::Xslate::Bridge::Star'],
         path   => [Data::Section::Simple::get_data_section]
@@ -45,7 +45,7 @@ sub produce {
         };
     }
 
-    tx->render('schema.tx', {
+    _tx->render('schema.tx', {
         package => $package,
         tables  => \@tables,
     });
