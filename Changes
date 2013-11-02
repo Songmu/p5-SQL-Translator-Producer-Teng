@@ -1,6 +1,8 @@
 Revision history for Perl extension SQL-Translator-Producer-Teng
 
 {{$NEXT}}
+
+0.02 2013-11-02T13:12:14Z
     - bump up SQL::Translator deps to 0.11017
 
 0.01 2013-09-29T05:28:05Z

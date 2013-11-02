@@ -4,7 +4,7 @@
       "Songmu <y.songmu@gmail.com>"
    ],
    "dynamic_config" : 0,
-   "generated_by" : "Minilla/v0.7.0, CPAN::Meta::Converter version 2.132510",
+   "generated_by" : "Minilla/v0.8.0, CPAN::Meta::Converter version 2.132510",
    "license" : [
       "perl_5"
    ],
@@ -21,7 +21,8 @@
          "share",
          "eg",
          "examples",
-         "author"
+         "author",
+         "builder"
       ]
    },
    "prereqs" : {
@@ -44,7 +45,7 @@
          "requires" : {
             "DBI" : "0",
             "Data::Section::Simple" : "0",
-            "SQL::Translator" : "0",
+            "SQL::Translator" : "0.11017",
             "Text::Xslate" : "0",
             "perl" : "5.008001"
          }
@@ -74,5 +75,5 @@
          "web" : "https://github.com/Songmu/p5-SQL-Translator-Producer-Teng"
       }
    },
-   "version" : "0.01"
+   "version" : "0.02"
 }
