@@ -1,6 +1,6 @@
 requires 'DBI';
 requires 'Data::Section::Simple';
-requires 'SQL::Translator';
+requires 'SQL::Translator', '0.11017';
 requires 'Text::Xslate';
 requires 'perl', '5.008001';
 

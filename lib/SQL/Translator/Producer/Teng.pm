@@ -25,17 +25,8 @@ sub produce {
     my $args = $translator->producer_args;
     my $package = $args->{package};
 
-    # patching SQL::Translator::Schema::Field::type_mapping
-    my %type_mapping = %SQL::Translator::Schema::Field::type_mapping;
-    local %SQL::Translator::Schema::Field::type_mapping = (
-        %type_mapping,
-        bigint  => DBI::SQL_BIGINT,
-        tinyint => DBI::SQL_TINYINT,
-    );
-
     my @tables;
     for my $table ($schema->get_tables) {
-
         my @pks;
         my @columns;
         for my $field ($table->get_fields) {
