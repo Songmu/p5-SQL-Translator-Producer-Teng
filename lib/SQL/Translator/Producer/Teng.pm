@@ -23,7 +23,9 @@ sub produce {
     my $translator = shift;
     my $schema = $translator->schema;
     my $args = $translator->producer_args;
-    my $package = $args->{package};
+
+    my $package        = $args->{package};
+    my $base_row_class = $args->{base_row_class};
 
     my @tables;
     for my $table ($schema->get_tables) {
@@ -46,8 +48,9 @@ sub produce {
     }
 
     _tx->render('schema.tx', {
-        package => $package,
-        tables  => \@tables,
+        package        => $package,
+        base_row_class => $base_row_class,
+        tables         => \@tables,
     });
 }
 
@@ -79,6 +82,10 @@ use warnings;
 use DBI qw/:sql_types/;
 use Teng::Schema::Declare;
 
+: if $base_row_class {
+base_row_class '<: $base_row_class :>';
+
+: }
 : for $tables -> $table {
 table {
     name '<: $table.name :>';
